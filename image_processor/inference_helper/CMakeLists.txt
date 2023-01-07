@@ -13,70 +13,21 @@ set(INFERENCE_HELPER_ENABLE_TFLITE_DELEGATE_NNAPI off CACHE BOOL "With Tflite De
 # Create library
 set(SRC inference_helper.h inference_helper.cpp inference_helper_log.h)
 
-if(INFERENCE_HELPER_ENABLE_OPENCV)
-    set(SRC ${SRC} inference_helper_opencv.h inference_helper_opencv.cpp)
-endif()
-
-if(INFERENCE_HELPER_ENABLE_TFLITE OR INFERENCE_HELPER_ENABLE_TFLITE_DELEGATE_XNNPACK OR INFERENCE_HELPER_ENABLE_TFLITE_DELEGATE_GPU OR INFERENCE_HELPER_ENABLE_TFLITE_DELEGATE_EDGETPU OR INFERENCE_HELPER_ENABLE_TFLITE_DELEGATE_NNAPI)
-    set(SRC ${SRC} inference_helper_tensorflow_lite.h inference_helper_tensorflow_lite.cpp)
-endif()
-
-if(INFERENCE_HELPER_ENABLE_TENSORRT)
-    set(SRC ${SRC} inference_helper_tensorrt.h inference_helper_tensorrt.cpp)
-    set(SRC ${SRC} tensorrt/logger.cpp tensorrt/BatchStream.h tensorrt/common.h tensorrt/EntropyCalibrator.h tensorrt/logger.h tensorrt/logging.h)
-endif()
-
-if(INFERENCE_HELPER_ENABLE_NCNN)
-    set(SRC ${SRC} inference_helper_ncnn.h inference_helper_ncnn.cpp)
-endif()
-
-if(INFERENCE_HELPER_ENABLE_MNN)
-    set(SRC ${SRC} inference_helper_mnn.h inference_helper_mnn.cpp)
-endif()
-
-if(INFERENCE_HELPER_ENABLE_SNPE)
-    set(SRC ${SRC} inference_helper_snpe.h inference_helper_snpe.cpp)
-    set(SRC ${SRC} snpe/CreateUserBuffer.cpp snpe/CreateUserBuffer.hpp snpe/Util.cpp snpe/Util.hpp snpe/udlExample.cpp snpe/udlExample.hpp)
-endif()
-
-if(INFERENCE_HELPER_ENABLE_ARMNN)
-    set(SRC ${SRC} inference_helper_armnn.h inference_helper_armnn.cpp)
-endif()
-
-if(INFERENCE_HELPER_ENABLE_NNABLA OR INFERENCE_HELPER_ENABLE_NNABLA_CUDA)
-    set(SRC ${SRC} inference_helper_nnabla.h inference_helper_nnabla.cpp)
-endif()
-
-if(INFERENCE_HELPER_ENABLE_ONNX_RUNTIME OR INFERENCE_HELPER_ENABLE_ONNX_RUNTIME_CUDA)
-    set(SRC ${SRC} inference_helper_onnx_runtime.h inference_helper_onnx_runtime.cpp)
-endif()
-
-if(INFERENCE_HELPER_ENABLE_LIBTORCH OR INFERENCE_HELPER_ENABLE_LIBTORCH_CUDA)
-    set(SRC ${SRC} inference_helper_libtorch.h inference_helper_libtorch.cpp)
-endif()
-
-if(INFERENCE_HELPER_ENABLE_TENSORFLOW OR INFERENCE_HELPER_ENABLE_TENSORFLOW_GPU)
-    set(SRC ${SRC} inference_helper_tensorflow.h inference_helper_tensorflow.cpp)
-endif()
-
-if(INFERENCE_HELPER_ENABLE_SAMPLE)
-    set(SRC ${SRC} inference_helper_sample.h inference_helper_sample.cpp)
-endif()
-
 add_library(${LibraryName} ${SRC})
 
-set(TENSORFLOW_SOURCE_DIR "thirdparty/tensorflow" CACHE PATH
-  "Directory that contains the TensorFlow project" )
-if(NOT TENSORFLOW_SOURCE_DIR)
-  get_filename_component(TENSORFLOW_SOURCE_DIR
-    "${CMAKE_CURRENT_LIST_DIR}/../../../../" ABSOLUTE)
-endif()
+# set(TENSORFLOW_SOURCE_DIR "thirdparty/tensorflow" CACHE PATH
+#   "Directory that contains the TensorFlow project" )
+# if(NOT TENSORFLOW_SOURCE_DIR)
+#   get_filename_component(TENSORFLOW_SOURCE_DIR
+#     "${CMAKE_CURRENT_LIST_DIR}/../../../../" ABSOLUTE)
+# endif()
 
-add_subdirectory(
-  "${TENSORFLOW_SOURCE_DIR}/tensorflow/lite"
-  "${CMAKE_CURRENT_BINARY_DIR}/tensorflow-lite" EXCLUDE_FROM_ALL)
+# add_subdirectory(
+#   "${TENSORFLOW_SOURCE_DIR}/tensorflow/lite"
+#   "${CMAKE_CURRENT_BINARY_DIR}/tensorflow-lite" EXCLUDE_FROM_ALL)
 
-target_link_libraries(${LibraryName} PRIVATE tensorflow-lite)
+include_directories(thirdparty/tensorflow/tensorflow)
+target_link_libraries(${LibraryName} PRIVATE "${CMAKE_CURRENT_LIST_DIR}/thirdparty/tensorflow/bazel-bin/tensorflow/lite/libtensorflowlite.dylib")
 
 
 # # For TensorInfo (Pre process calculation)

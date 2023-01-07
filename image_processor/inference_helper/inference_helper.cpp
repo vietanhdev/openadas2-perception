@@ -34,36 +34,6 @@ limitations under the License.
 #if defined(INFERENCE_HELPER_ENABLE_TFLITE) || defined(INFERENCE_HELPER_ENABLE_TFLITE_DELEGATE_XNNPACK) || defined(INFERENCE_HELPER_ENABLE_TFLITE_DELEGATE_GPU) || defined(INFERENCE_HELPER_ENABLE_TFLITE_DELEGATE_EDGETPU)
 #include "inference_helper_tensorflow_lite.h"
 #endif
-#ifdef INFERENCE_HELPER_ENABLE_TENSORRT
-#include "inference_helper_tensorrt.h"
-#endif
-#ifdef INFERENCE_HELPER_ENABLE_NCNN
-#include "inference_helper_ncnn.h"
-#endif
-#ifdef INFERENCE_HELPER_ENABLE_MNN
-#include "inference_helper_mnn.h"
-#endif
-#ifdef INFERENCE_HELPER_ENABLE_SNPE
-#include "inference_helper_snpe.h"
-#endif
-#ifdef INFERENCE_HELPER_ENABLE_ARMNN
-#include "inference_helper_armnn.h"
-#endif
-#if defined(INFERENCE_HELPER_ENABLE_NNABLA) || defined(INFERENCE_HELPER_ENABLE_NNABLA_CUDA)
-#include "inference_helper_nnabla.h"
-#endif
-#if defined(INFERENCE_HELPER_ENABLE_ONNX_RUNTIME) || defined(INFERENCE_HELPER_ENABLE_ONNX_RUNTIME_CUDA)
-#include "inference_helper_onnx_runtime.h"
-#endif
-#if defined(INFERENCE_HELPER_ENABLE_LIBTORCH) || defined(INFERENCE_HELPER_ENABLE_LIBTORCH_CUDA)
-#include "inference_helper_libtorch.h"
-#endif
-#if defined(INFERENCE_HELPER_ENABLE_TENSORFLOW) || defined(INFERENCE_HELPER_ENABLE_TENSORFLOW_GPU)
-#include "inference_helper_tensorflow.h"
-#endif
-#ifdef INFERENCE_HELPER_ENABLE_SAMPLE
-#include "inference_helper_sample.h"
-#endif
 
 /*** Macro ***/
 #define TAG "InferenceHelper"
