@@ -1,19 +1,3 @@
-/* Copyright 2021 iwatake2222
-
-Licensed under the Apache License, Version 2.0 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
-
-    http://www.apache.org/licenses/LICENSE-2.0
-
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
-==============================================================================*/
-/*** Include ***/
-/* for general */
 #include <cstdint>
 #include <cstdlib>
 #include <string>
@@ -28,8 +12,8 @@ limitations under the License.
 #include "common_helper_cv.h"
 
 /*** Macro ***/
-#define WORK_DIR                      RESOURCE_DIR
-#define DEFAULT_INPUT_IMAGE           RESOURCE_DIR"/dashcam_01.jpg"
+#define WORK_DIR                      "."
+#define DEFAULT_INPUT_IMAGE           "./dashcam_01.jpg"
 #define LOOP_NUM_FOR_TIME_MEASUREMENT 5
 static constexpr char kOutputVideoFilename[] = "";  /* out.mp4 */
 
@@ -119,7 +103,7 @@ int32_t main(int argc, char* argv[])
             total_time_post_process += result.time_post_process;
         }
     }
-    
+
     /*** Finalize ***/
     /* Print average processing time */
     if (frame_cnt > 1) {

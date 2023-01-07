@@ -42,10 +42,9 @@ limitations under the License.
 
 /* Model parameters */
 #define MODEL_TYPE_TFLITE
-// #define MODEL_TYPE_ONNX
 
-#if defined(MODEL_TYPE_TFLITE)
-#define MODEL_NAME  "hybridnets_384x640.tflite"
+
+#define MODEL_NAME  "hybridnets_384x640/model_float16_quant.tflite"
 #define TENSORTYPE  TensorInfo::kTensorTypeFp32
 #define INPUT_NAME  "serving_default_input:0"
 #define INPUT_DIMS  { 1, 384, 640, 3 }
@@ -56,17 +55,7 @@ limitations under the License.
 #define OUTPUT_NAME_2 "StatefulPartitionedCall:2"
 // #define MODEL_NAME  "hybridnets_256x384_float16_quant.tflite"
 // #define INPUT_DIMS  { 1, 256, 384, 3 }
-#elif defined(MODEL_TYPE_ONNX)
-#define MODEL_NAME  "hybridnets_384x640.onnx"
-#define TENSORTYPE  TensorInfo::kTensorTypeFp32
-#define INPUT_NAME  "input"
-#define INPUT_DIMS  { 1, 3, 384, 640 }
-#define IS_NCHW     true
-#define IS_RGB      true
-#define OUTPUT_NAME_0 "segmentation"
-#define OUTPUT_NAME_1 "classification"
-#define OUTPUT_NAME_2 "regression"
-#endif
+
 
 static const std::vector<std::string> kLabelListDet{ "Car" };
 static const std::vector<std::string> kLabelListSeg{ "Background", "Lane", "Line" };
@@ -76,7 +65,7 @@ static const std::vector<std::string> kLabelListSeg{ "Background", "Lane", "Line
 int32_t DetectionEngine::Initialize(const std::string& work_dir, const int32_t num_threads)
 {
     /* Set model information */
-    std::string model_filename = work_dir + "/model/" + MODEL_NAME;
+    std::string model_filename = work_dir + "/models/" + MODEL_NAME;
 
     /* Set input tensor info */
     input_tensor_info_list_.clear();
@@ -98,15 +87,11 @@ int32_t DetectionEngine::Initialize(const std::string& work_dir, const int32_t n
     output_tensor_info_list_.push_back(OutputTensorInfo(OUTPUT_NAME_2, TENSORTYPE));
 
     /* Create and Initialize Inference Helper */
-#if defined(MODEL_TYPE_TFLITE)
-    //inference_helper_.reset(InferenceHelper::Create(InferenceHelper::kTensorflowLite));
-    inference_helper_.reset(InferenceHelper::Create(InferenceHelper::kTensorflowLiteXnnpack));
+    inference_helper_.reset(InferenceHelper::Create(InferenceHelper::kTensorflowLite));
+    // inference_helper_.reset(InferenceHelper::Create(InferenceHelper::kTensorflowLiteXnnpack));
     //inference_helper_.reset(InferenceHelper::Create(InferenceHelper::kTensorflowLiteGpu));
     //inference_helper_.reset(InferenceHelper::Create(InferenceHelper::kTensorflowLiteEdgetpu));
     //inference_helper_.reset(InferenceHelper::Create(InferenceHelper::kTensorflowLiteNnapi));
-#elif defined(MODEL_TYPE_ONNX)
-    inference_helper_.reset(InferenceHelper::Create(InferenceHelper::kOnnxRuntime));
-#endif
 
     if (!inference_helper_) {
         return kRetErr;
