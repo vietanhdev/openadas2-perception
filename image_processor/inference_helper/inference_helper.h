@@ -223,28 +223,11 @@ public:
     };
 
     typedef enum {
-        kOpencv,
-        kOpencvGpu,
         kTensorflowLite,
         kTensorflowLiteXnnpack,
         kTensorflowLiteGpu,
         kTensorflowLiteEdgetpu,
         kTensorflowLiteNnapi,
-        kTensorrt,
-        kNcnn,
-        kNcnnVulkan,
-        kMnn,
-        kSnpe,
-        kArmnn,
-        kNnabla,
-        kNnablaCuda,
-        kOnnxRuntime,
-        kOnnxRuntimeCuda,
-        kLibtorch,
-        kLibtorchCuda,
-        kTensorflow,
-        kTensorflowGpu,
-        kSample,
     } HelperType;
 
 public:
