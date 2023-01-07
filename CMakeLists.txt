@@ -1,11 +1,11 @@
 cmake_minimum_required(VERSION 3.0)
 
 # Create project
-set(ProjectName "main")
+set(ProjectName "openadas2-perception")
 project(${ProjectName})
 
 # Select build system and set compile options
-include(${CMAKE_CURRENT_LIST_DIR}/../common_helper/cmakes/build_setting.cmake)
+include(${CMAKE_CURRENT_LIST_DIR}/common_helper/cmakes/build_setting.cmake)
 
 # Create executable file
 add_executable(${ProjectName} main.cpp)
@@ -21,6 +21,6 @@ target_include_directories(${ProjectName} PUBLIC ${OpenCV_INCLUDE_DIRS})
 target_link_libraries(${ProjectName} ${OpenCV_LIBS})
 
 # Copy resouce
-file(COPY ${CMAKE_CURRENT_LIST_DIR}/../resource DESTINATION ${CMAKE_BINARY_DIR}/)
-add_definitions(-DRESOURCE_DIR="${CMAKE_BINARY_DIR}/resource/")
+file(COPY ${CMAKE_CURRENT_LIST_DIR}/models DESTINATION ${CMAKE_BINARY_DIR}/)
+add_definitions(-DRESOURCE_DIR="${CMAKE_BINARY_DIR}/models/")
 
