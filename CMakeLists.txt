@@ -1,26 +1,26 @@
 cmake_minimum_required(VERSION 3.0)
 
 # Create project
-set(ProjectName "openadas2-perception")
+set(ProjectName "openadas2_perception")
 project(${ProjectName})
 
 # Select build system and set compile options
-include(${CMAKE_CURRENT_LIST_DIR}/common_helper/cmakes/build_setting.cmake)
+include(${CMAKE_CURRENT_LIST_DIR}/src/cmakes/build_setting.cmake)
 
 # Create executable file
-add_executable(${ProjectName} main.cpp)
+add_executable(demo src/demo.cpp)
 
-# Link ImageProcessor module
-add_subdirectory(./image_processor image_processor)
-target_include_directories(${ProjectName} PUBLIC ./image_processor)
-target_link_libraries(${ProjectName} ImageProcessor)
+# Link engine module
+add_subdirectory(./src src)
+target_include_directories(demo PUBLIC ./src ./src/common)
+target_link_libraries(demo openadas2_perception_engine)
 
 # For OpenCV
 find_package(OpenCV REQUIRED)
-target_include_directories(${ProjectName} PUBLIC ${OpenCV_INCLUDE_DIRS})
-target_link_libraries(${ProjectName} ${OpenCV_LIBS})
+target_include_directories(demo PUBLIC ${OpenCV_INCLUDE_DIRS})
+target_link_libraries(demo ${OpenCV_LIBS})
 
 # Copy resouce
-file(COPY ${CMAKE_CURRENT_LIST_DIR}/models DESTINATION ${CMAKE_BINARY_DIR}/)
+file(COPY ${CMAKE_CURRENT_LIST_DIR}/data/models DESTINATION ${CMAKE_BINARY_DIR}/)
 add_definitions(-DRESOURCE_DIR="${CMAKE_BINARY_DIR}/models/")
 
