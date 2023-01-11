@@ -70,8 +70,8 @@ int32_t DetectionEngine::Initialize(const std::string& work_dir, const int32_t n
     output_tensor_info_list_.push_back(OutputTensorInfo(OUTPUT_NAME_2, TENSORTYPE));
 
     /* Create and Initialize Inference Helper */
-    inference_helper_.reset(InferenceHelper::Create(InferenceHelper::kTensorflowLite));
-    // inference_helper_.reset(InferenceHelper::Create(InferenceHelper::kTensorflowLiteXnnpack));
+    // inference_helper_.reset(InferenceHelper::Create(InferenceHelper::kTensorflowLite));
+    inference_helper_.reset(InferenceHelper::Create(InferenceHelper::kTensorflowLiteXnnpack));
     // inference_helper_.reset(InferenceHelper::Create(InferenceHelper::kTensorflowLiteHexagon));
     // inference_helper_.reset(InferenceHelper::Create(InferenceHelper::kTensorflowLiteGpu));
     // inference_helper_.reset(InferenceHelper::Create(InferenceHelper::kTensorflowLiteEdgetpu));

@@ -25,6 +25,20 @@ cmake .. -DCMAKE_HOST_SYSTEM_PROCESSOR=arm64 -DBUILD_SYSTEM=arm64
 make
 ```
 
+- Update cpuinfo CMAKE (`build/cpuinfo/CMakeLists.txt`) from the second build:
+
+From:
+```
+IF(NOT DEFINED CLOG_SOURCE_DIR)
+  SET(CLOG_SOURCE_DIR "${PROJECT_SOURCE_DIR}/deps/clog")
+ENDIF()
+```
+
+To:
+```
+SET(CLOG_SOURCE_DIR "${PROJECT_SOURCE_DIR}/deps/clog")
+```
+
 - Run the demo:
 
 ```

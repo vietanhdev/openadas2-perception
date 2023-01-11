@@ -16,18 +16,21 @@ set(SRC inference_helper.h inference_helper.cpp inference_helper_log.h inference
 
 add_library(${LibraryName} ${SRC})
 
-
+# https://www.tensorflow.org/lite/guide/build_cmake
+set(TFLITE_ENABLE_GPU ON)
+set(TFLITE_ENABLE_XNNPACK ON CACHE BOOL "Enable XNNPACK delegate? [ON/OFF]")
+set(TFLITE_ENABLE_NNAPI ON)
+set(TFLITE_ENABLE_HEXAGON ON)
+set(TFLITE_ENABLE_EDGETPU ON)
+set(TFLITE_ENABLE_BENCHMARK OFF)
+set(TFLITE_ENABLE_RUY OFF)
+set(MAKE_BUILD_TYPE "Release")
 set(TENSORFLOW_SOURCE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/thirdparty/tensorflow")
-set(TENSORFLOW_SOURCE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/thirdparty/tensorflow" CACHE PATH
-  "Directory that contains the TensorFlow project" )
-add_subdirectory(
-  "${TENSORFLOW_SOURCE_DIR}/tensorflow/lite"
-  "${CMAKE_CURRENT_BINARY_DIR}/tensorflow-lite" EXCLUDE_FROM_ALL)
-
-
-include_directories(thirdparty/tensorflow thirdparty/flatbuffers)
-# target_link_libraries(${LibraryName} PRIVATE "${CMAKE_CURRENT_LIST_DIR}/thirdparty/tensorflow/bazel-bin/tensorflow/lite/libtensorflowlite.dylib")
+add_subdirectory("${TENSORFLOW_SOURCE_DIR}/tensorflow/lite" "${CMAKE_CURRENT_BINARY_DIR}/tensorflow-lite")
 target_link_libraries(${LibraryName} PRIVATE tensorflow-lite)
+
+# include_directories(thirdparty/tensorflow thirdparty/flatbuffers)
+# target_link_libraries(${LibraryName} PRIVATE "${CMAKE_CURRENT_LIST_DIR}/thirdparty/tensorflow/bazel-bin/tensorflow/lite/libtensorflowlite.dylib")
 
 # For Tensorflow Lite
 add_definitions(-DINFERENCE_HELPER_ENABLE_TFLITE)
