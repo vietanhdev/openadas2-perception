@@ -20,8 +20,12 @@ message("[main] CMAKE_SYSTEM_PROCESSOR = " ${CMAKE_SYSTEM_PROCESSOR} ", BUILD_SY
 # Compile option
 set(CMAKE_C_STANDARD 99)
 set(CMAKE_CXX_STANDARD 17)
+set(ABSL_PROPAGATE_CXX_STD ON)
 if(MSVC)
     add_compile_options(/wd4819)	# ignore character code warning
+    set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS TRUE)
+    set(BUILD_SHARED_LIBS TRUE)
+    set(CVXOPT_MSVC TRUE)
 else()
     set(CMAKE_C_FLAGS "-Wall")
     set(CMAKE_C_FLAGS_RELEASE "-O2 -DNDEBUG")

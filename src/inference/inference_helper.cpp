@@ -52,6 +52,12 @@ InferenceHelper* InferenceHelper::Create(const InferenceHelper::HelperType helpe
         p = new InferenceHelperTensorflowLite();
         break;
 #endif
+#ifdef INFERENCE_HELPER_ENABLE_TFLITE_DELEGATE_HEXAGON
+    case kTensorflowLiteHexagon:
+        PRINT("Use TensorflowLite Hexagon Delegate\n");
+        p = new InferenceHelperTensorflowLite();
+        break;
+#endif
 #ifdef INFERENCE_HELPER_ENABLE_TFLITE_DELEGATE_EDGETPU
     case kTensorflowLiteEdgetpu:
         PRINT("Use TensorflowLite EdgeTPU Delegate\n");
@@ -62,91 +68,6 @@ InferenceHelper* InferenceHelper::Create(const InferenceHelper::HelperType helpe
     case kTensorflowLiteNnapi:
         PRINT("Use TensorflowLite NNAPI Delegate\n");
         p = new InferenceHelperTensorflowLite();
-        break;
-#endif
-#ifdef INFERENCE_HELPER_ENABLE_TENSORRT
-    case kTensorrt:
-        PRINT("Use TensorRT \n");
-        p = new InferenceHelperTensorRt();
-        break;
-#endif
-#ifdef INFERENCE_HELPER_ENABLE_NCNN
-    case kNcnn:
-    case kNcnnVulkan:
-        PRINT("Use NCNN\n");
-        p = new InferenceHelperNcnn();
-        break;
-#endif
-#ifdef INFERENCE_HELPER_ENABLE_MNN
-    case kMnn:
-        PRINT("Use MNN\n");
-        p = new InferenceHelperMnn();
-        break;
-#endif
-#ifdef INFERENCE_HELPER_ENABLE_SNPE
-    case kSnpe:
-        PRINT("Use SNPE\n");
-        p = new InferenceHelperSnpe();
-        break;
-#endif
-#ifdef INFERENCE_HELPER_ENABLE_ARMNN
-    case kArmnn:
-        PRINT("Use ARMNN\n");
-        p = new InferenceHelperArmnn();
-        break;
-#endif
-#ifdef INFERENCE_HELPER_ENABLE_NNABLA
-    case kNnabla:
-        PRINT("Use NNabla\n");
-        p = new InferenceHelperNnabla();
-        break;
-#endif
-#ifdef INFERENCE_HELPER_ENABLE_NNABLA_CUDA
-    case kNnablaCuda:
-        PRINT("Use NNabla_CUDA\n");
-        p = new InferenceHelperNnabla();
-        break;
-#endif
-#ifdef INFERENCE_HELPER_ENABLE_ONNX_RUNTIME
-    case kOnnxRuntime:
-        PRINT("Use ONNX Runtime\n");
-        p = new InferenceHelperOnnxRuntime();
-        break;
-#endif
-#ifdef INFERENCE_HELPER_ENABLE_ONNX_RUNTIME_CUDA
-    case kOnnxRuntimeCuda:
-        PRINT("Use ONNX Runtime_CUDA\n");
-        p = new InferenceHelperOnnxRuntime();
-        break;
-#endif
-#ifdef INFERENCE_HELPER_ENABLE_LIBTORCH
-    case kLibtorch:
-        PRINT("Use LibTorch\n");
-        p = new InferenceHelperLibtorch();
-        break;
-#endif
-#ifdef INFERENCE_HELPER_ENABLE_LIBTORCH_CUDA
-    case kLibtorchCuda:
-        PRINT("Use LibTorch CUDA\n");
-        p = new InferenceHelperLibtorch();
-        break;
-#endif
-#ifdef INFERENCE_HELPER_ENABLE_TENSORFLOW
-    case kTensorflow:
-        PRINT("Use TensorFlow\n");
-        p = new InferenceHelperTensorflow();
-        break;
-#endif
-#ifdef INFERENCE_HELPER_ENABLE_TENSORFLOW_GPU
-    case kTensorflowGpu:
-        PRINT("Use TensorFlow GPU\n");
-        p = new InferenceHelperTensorflow();
-        break;
-#endif
-#ifdef INFERENCE_HELPER_ENABLE_SAMPLE
-    case kSample:
-        PRINT("Do not use this. this is just a reference code\n");
-        p = new InferenceHelperSample();
         break;
 #endif
     default:

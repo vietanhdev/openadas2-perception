@@ -72,9 +72,10 @@ int32_t DetectionEngine::Initialize(const std::string& work_dir, const int32_t n
     /* Create and Initialize Inference Helper */
     inference_helper_.reset(InferenceHelper::Create(InferenceHelper::kTensorflowLite));
     // inference_helper_.reset(InferenceHelper::Create(InferenceHelper::kTensorflowLiteXnnpack));
+    // inference_helper_.reset(InferenceHelper::Create(InferenceHelper::kTensorflowLiteHexagon));
     // inference_helper_.reset(InferenceHelper::Create(InferenceHelper::kTensorflowLiteGpu));
-    //inference_helper_.reset(InferenceHelper::Create(InferenceHelper::kTensorflowLiteEdgetpu));
-    //inference_helper_.reset(InferenceHelper::Create(InferenceHelper::kTensorflowLiteNnapi));
+    // inference_helper_.reset(InferenceHelper::Create(InferenceHelper::kTensorflowLiteEdgetpu));
+    // inference_helper_.reset(InferenceHelper::Create(InferenceHelper::kTensorflowLiteNnapi));
 
     if (!inference_helper_) {
         return kRetErr;
@@ -118,8 +119,6 @@ int32_t DetectionEngine::Process(const cv::Mat& original_mat, Result& result)
     int32_t crop_h = original_mat.rows;
     cv::Mat img_src = cv::Mat::zeros(input_tensor_info.GetHeight(), input_tensor_info.GetWidth(), CV_8UC3);
     CommonHelper::CropResizeCvt(original_mat, img_src, crop_x, crop_y, crop_w, crop_h, IS_RGB, CommonHelper::kCropTypeStretch);
-    //CommonHelper::CropResizeCvt(original_mat, img_src, crop_x, crop_y, crop_w, crop_h, IS_RGB, CommonHelper::kCropTypeCut);
-    //CommonHelper::CropResizeCvt(original_mat, img_src, crop_x, crop_y, crop_w, crop_h, IS_RGB, CommonHelper::kCropTypeExpand);
 
     input_tensor_info.data = img_src.data;
     input_tensor_info.data_type = InputTensorInfo::kDataTypeImage;
@@ -176,7 +175,7 @@ int32_t DetectionEngine::Process(const cv::Mat& original_mat, Result& result)
         }
     }
 
-    /* Get boundig box */
+    /* Get bounding box */
     /* reference: https://github.dev/datvuthanh/HybridNets/blob/c626bb89beb1b52440bacdbcc90ac60f9814c9a2/utils/utils.py#L615-L616 */
     float scale_w = static_cast<float>(crop_w) / input_tensor_info.GetWidth();
     float scale_h = static_cast<float>(crop_h) / input_tensor_info.GetHeight();

@@ -15,11 +15,9 @@
 #define LOOP_NUM_FOR_TIME_MEASUREMENT 5
 static constexpr char kOutputVideoFilename[] = "";  /* out.mp4 */
 
-/*** Function ***/
+
 int32_t main(int argc, char* argv[])
 {
-    /*** Initialize ***/
-    /* variables for processing time measurement */
     double total_time_all = 0;
     double total_time_cap = 0;
     double total_time_image_process = 0;

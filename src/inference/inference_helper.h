@@ -43,7 +43,7 @@ public:
         if (tensor_dims.size() <= 0) return -1;
         return tensor_dims[0];
     }
-    
+
     int32_t GetChannel() const
     {
         if (is_nchw) {
@@ -150,7 +150,7 @@ public:
         tensor_type = tensor_type_;
         is_nchw = is_nchw_;
     }
-    
+
     ~OutputTensorInfo() {
         if (data_fp32_ != nullptr) {
             delete[] data_fp32_;
@@ -212,6 +212,7 @@ public:
         kTensorflowLite,
         kTensorflowLiteXnnpack,
         kTensorflowLiteGpu,
+        kTensorflowLiteHexagon,
         kTensorflowLiteEdgetpu,
         kTensorflowLiteNnapi,
     } HelperType;

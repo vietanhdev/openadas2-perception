@@ -2,3 +2,5 @@
 /models
 /data
 /build
+.gitmodules
+.vscode/c_cpp_properties.json

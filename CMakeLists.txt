@@ -1,6 +1,4 @@
-cmake_minimum_required(VERSION 3.0)
-
-# Create project
+cmake_minimum_required(VERSION 3.6)
 set(ProjectName "openadas2_perception")
 project(${ProjectName})
 
@@ -11,7 +9,7 @@ include(${CMAKE_CURRENT_LIST_DIR}/src/cmakes/build_setting.cmake)
 add_executable(demo src/demo.cpp)
 
 # Link engine module
-add_subdirectory(./src src)
+add_subdirectory(./src openadas2_perception_engine)
 target_include_directories(demo PUBLIC ./src ./src/common)
 target_link_libraries(demo openadas2_perception_engine)
 

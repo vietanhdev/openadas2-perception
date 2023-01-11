@@ -1,9 +1,8 @@
-cmake_minimum_required(VERSION 3.2)
+cmake_minimum_required(VERSION 3.6)
 
 set(LibraryName "CommonHelper")
 
 set(COMMON_HELPER_WITH_OPENCV on CACHE BOOL "With OpenCV? [on/off]")
-
 
 set(SRC
     common_helper.h common_helper.cpp

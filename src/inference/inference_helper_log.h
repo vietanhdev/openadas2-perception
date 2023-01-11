@@ -1,13 +1,10 @@
 #ifndef INFERENCE_HELPER_LOG_
 #define INFERENCE_HELPER_LOG_
-
-
 #include <cstdint>
 #include <cmath>
 #include <string>
 #include <vector>
 #include <array>
-
 
 #if defined(ANDROID) || defined(__ANDROID__)
 #define CV_COLOR_IS_RGB

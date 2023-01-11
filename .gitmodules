@@ -1,0 +1,3 @@
+[submodule "src/inference/thirdparty/tensorflow"]
+	path = src/inference/thirdparty/tensorflow
+	url = https://github.com/tensorflow/tensorflow
