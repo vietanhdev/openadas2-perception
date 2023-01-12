@@ -17,9 +17,6 @@ target_link_libraries(${LibraryName} CommonHelper)
 
 # For InferenceHelper
 set(INFERENCE_HELPER_DIR ${CMAKE_CURRENT_LIST_DIR}/inference)
-set(INFERENCE_HELPER_ENABLE_TFLITE ON)
-set(INFERENCE_HELPER_ENABLE_TFLITE_DELEGATE_XNNPACK ON)
-set(INFERENCE_HELPER_ENABLE_TFLITE_DELEGATE_GPU OFF)
 add_subdirectory(${INFERENCE_HELPER_DIR} inference_helper)
 target_include_directories(${LibraryName} PUBLIC ${INFERENCE_HELPER_DIR})
 target_link_libraries(${LibraryName} InferenceHelper)

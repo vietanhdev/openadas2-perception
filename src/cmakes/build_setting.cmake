@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.4)
+cmake_minimum_required(VERSION 3.6)
 
 # Select build system
 set(BUILD_SYSTEM auto CACHE STRING "Build target? [auto, x64_windows, x64_linux, armv7, aarch64]")
@@ -20,7 +20,7 @@ message("[main] CMAKE_SYSTEM_PROCESSOR = " ${CMAKE_SYSTEM_PROCESSOR} ", BUILD_SY
 # Compile option
 set(CMAKE_C_STANDARD 99)
 set(CMAKE_CXX_STANDARD 17)
-set(ABSL_PROPAGATE_CXX_STD ON)
+# set(ABSL_PROPAGATE_CXX_STD ON) # Dont use this option, it will slow down the inference speed
 if(MSVC)
     add_compile_options(/wd4819)	# ignore character code warning
     set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS TRUE)
@@ -43,8 +43,6 @@ endif()
 if(APPLE)
     link_directories("/opt/homebrew/Cellar/libomp/15.0.6/lib")
     include_directories("/opt/homebrew/Cellar/libomp/15.0.6/include")
-    # set(CMAKE_C_COMPILER clang)
-    # set(CMAKE_CXX_COMPILER clang++)
     if(CMAKE_C_COMPILER_ID MATCHES "Clang\$")
         set(OpenMP_C_FLAGS "-Xpreprocessor -fopenmp")
         set(OpenMP_C_LIB_NAMES "omp")

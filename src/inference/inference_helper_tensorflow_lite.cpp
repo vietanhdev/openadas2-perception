@@ -15,10 +15,6 @@
 #include "tensorflow/lite/delegates/xnnpack/xnnpack_delegate.h"
 #endif
 
-#ifdef INFERENCE_HELPER_ENABLE_TFLITE_DELEGATE_HEXAGON
-#include <tensorflow/lite/delegates/hexagon/hexagon_delegate.h>
-#endif
-
 #ifdef INFERENCE_HELPER_ENABLE_TFLITE_DELEGATE_GPU
 #include "tensorflow/lite/delegates/gpu/delegate.h"
 #endif
@@ -30,6 +26,10 @@
 
 #ifdef INFERENCE_HELPER_ENABLE_TFLITE_DELEGATE_NNAPI
 #include "tensorflow/lite/delegates/nnapi/nnapi_delegate.h"
+#endif
+
+#ifdef INFERENCE_HELPER_ENABLE_TFLITE_DELEGATE_HEXAGON
+#include <tensorflow/lite/delegates/hexagon/hexagon_delegate.h>
 #endif
 
 
@@ -109,9 +109,7 @@ int32_t InferenceHelperTensorflowLite::Initialize(const std::string& model_filen
 #ifdef INFERENCE_HELPER_ENABLE_TFLITE_DELEGATE_HEXAGON
     if (helper_type_ == kTensorflowLiteHexagon) {
         auto options = TfLiteHexagonDelegateOptionsDefault();
-        options.inference_preference = TFLITE_GPU_INFERENCE_PREFERENCE_SUSTAINED_SPEED;
-        options.inference_priority1 = TFLITE_GPU_INFERENCE_PRIORITY_MIN_LATENCY;
-        delegate_ = TfLiteGpuDelegateV2Create(&options);
+        delegate_ = TfLiteHexagonDelegateCreate(&options);
         interpreter_->ModifyGraphWithDelegate(delegate_);
     }
 #endif
